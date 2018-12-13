@@ -112,7 +112,8 @@ cell:
 
 external block:
 [ hash location of code
-, block index in code (positive integer)
+, number of sites to import (positive integer)
+, block indices in code (positive integers)...
 ]
 ```
 
@@ -128,6 +129,8 @@ In a branch, because these are packed to little-endian, n input vectors could be
 
 A site in the dataflow graph is wired feed-forward. However, memory latches may be used anywhere within a branch, and as they are declared first, they may use other sites for the definition of their new value.
 With the exception of memory latches, whose value previously defined is used, any index declared as an input to a merge or branch must be less than the current site index (starting from the first memory latch, through input sites, body sites, and output sites)
+
+An external site import will occupy n indices for the declared number of imported sites.
 
 #### Encoding
 Positive integers (as listed above) are encoded as binary.1/-, little endian, terminated with 0.
