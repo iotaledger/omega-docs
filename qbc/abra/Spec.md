@@ -58,6 +58,10 @@ Attachment:
 
 code:
 [ tritcode version (positive integer [0])
+, number of external sites
+, external site definitions...
+, number of lookup tables
+, lookup table definitions...
 , number of blocks (positive integer)
 , blocks ...
 ]
@@ -72,9 +76,8 @@ output environment data:
 , delay (positive integer)
 ]
 
-block:
+block (whether external, lut, or branch):
 [ number of trits in block definition (positive integer)
-, branch / lut / [external import ] (1 trit: 1/0/-)
 , value...
 ]
 
@@ -125,12 +128,14 @@ A knot's definition (as opposed to inputs) may be defined by any of the blocks l
 
 In a branch, because these are packed to little-endian, n input vectors could be concatenated or shuffled to select, concatenate, or rearrange by ordering of sites which each merge one input index, and marking the site as output to the branch. In a concatenation example, it uses no lookup tables. A branch which selects a range of trits at an offset which changes dependent on one of its inputs (an index), however, may have many input sites of 1-trit vectors, and use many lookup tables and mergers.
 
+#### Importing branch definitions from external sites
+
+An external site import will occupy n indices for the declared number of imported sites. When a branch is used in a site (knot), these external sites will occupy that portion.
+
 ##### Inputs to knot/merge
 
 A site in the dataflow graph is wired feed-forward. However, memory latches may be used anywhere within a branch, and as they are declared first, they may use other sites for the definition of their new value.
 With the exception of memory latches, whose value previously defined is used, any index declared as an input to a merge or branch must be less than the current site index (starting from the first memory latch, through input sites, body sites, and output sites)
-
-An external site import will occupy n indices for the declared number of imported sites.
 
 If the site being defined is a memory latch, it may use any other index from the rest of the branch as an input, including other memory latches. This is because the resulting value will only be set on a memory latch after the branch is invoked.
 
