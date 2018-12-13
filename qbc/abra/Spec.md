@@ -1,3 +1,4 @@
+
 ## Abra
 
 Abra describes recursive trinary dataflow. It is a dataflow-oriented computation language.
@@ -83,15 +84,13 @@ branch:
 , number of inputs (positive integer)
 , input lengths (positive integers)...
 , number of body sites (positive integer)
-, body site definitoins...
+, body site definitions...
 , number of output sites (positive integer)
-, output site definitoins...
+, output site definitions...
 ]
 
 site:
-[ site is output? 1 trit (1/-)
-, site is a memory latch (stateful)? 1 trit (1/-)
-, merge / constant / knot? 1 trit (1/0/-)
+[ merge / constant / knot? 1 trit (1/0/-)
 , merge/knot: {
   , number of sites as inputs to knot/merge (positive integer)
   , indices of sites
