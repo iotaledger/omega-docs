@@ -132,6 +132,10 @@ With the exception of memory latches, whose value previously defined is used, an
 
 An external site import will occupy n indices for the declared number of imported sites.
 
+If the site being defined is a memory latch, it may use any other index from the rest of the branch as an input, including other memory latches. This is because the resulting value will only be set on a memory latch after the branch is invoked.
+
+All other sites (body, output) may only use site indices less than their current index, such that there is no possibility of cycles (which may possibly not settle) in a branch.
+
 #### Encoding
 Positive integers (as listed above) are encoded as binary.1/-, little endian, terminated with 0.
 
