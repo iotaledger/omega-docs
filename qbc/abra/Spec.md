@@ -98,7 +98,7 @@ site:
   , number of sites as inputs to knot/merge (positive integer)
   , indices of sites
   }
-, knot: { branch index (if knot is set) }
+, knot: { block index (if knot is set) }
 , constant: encoded value (positive integer number of trits, trinary value)
 ]
 
