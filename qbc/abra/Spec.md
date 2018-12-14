@@ -10,8 +10,6 @@ Branches are defined as a list of sizes of inputs, and a list of dataflow sites 
 
 #### Terms
 
-> Branch : much like a function. it can have state, and can recursively invoke itself. 
-recursive invokations of branches are new instances of the branch; if it is stateful, then it is a new state in each recursive path.
 ```
  Knot: an invocation of a branch which outputs to a site in the dataflow of a branch
 
@@ -23,7 +21,7 @@ recursive invokations of branches are new instances of the branch; if it is stat
 
  Effect: a non-null trit vector sent between effects
 
- Branch: much like a function in traditional programming paradigms. It has an exact input size and an exact return size. Its output is serialized as each site marked as "output" in the order it appears.
+ Branch: much like a function in traditional programming paradigms. It can have state, and can recursively invoke itself. Recursive invocations of branches are new instances of the branch. If it is stateful, then it is a new state in each recursive path. It has an exact input size and an exact return size. Its output is serialized as each site marked as "output" in the order it appears.
 
  Site: a vertex in our dataflow graph within a branch, representing a constant, a result of a branch invocation, or a merging of other sites.
  
@@ -48,22 +46,12 @@ Entity attachment:
 ]
 
 Attachment:
-[ entity index (positive integer) // The index of the block/branch in the code which this entity becomes
-, maximum depth (positive integer)
+[ branch block index (positive integer)
+, maximum recursion depth (positive integer)
 , number of input environments (positive integer)
 , input environment data...
 , number of output environments (positive integer)
 , output environment data...
-]
-
-code:
-[ tritcode version (positive integer [0])
-, number of external sites
-, external site definitions...
-, number of lookup tables
-, lookup table definitions...
-, number of blocks (positive integer)
-, blocks ...
 ]
 
 input environment data:
@@ -76,30 +64,52 @@ output environment data:
 , delay (positive integer)
 ]
 
+
+code:
+[ tritcode version (positive integer [0])
+, number of external blocks (positive integer)
+, external block definitions...
+, number of lookup table blocks (positive integer)
+, lookup table block definitions...
+, number of branch blocks (positive integer)
+, branch block definitions ...
+]
+
 block (whether external, lut, or branch):
 [ number of trits in block definition (positive integer)
 , value...
 ]
 
 branch:
-[ number of memory latches (positive integer)
-, memory latch sites ...
-, number of inputs (positive integer)
+[ number of inputs (positive integer)
 , input lengths (positive integers)...
+, number of memory latch sites (positive integer)
+, memory latch site indices (positive integers)...
 , number of body sites (positive integer)
 , body site definitions...
 , number of output sites (positive integer)
-, output site definitions...
+, output site indices (positive integers)...
 ]
 
 site:
-[ merge / constant / knot? 1 trit (1/0/-)
-, merge/knot: {
-  , number of sites as inputs to knot/merge (positive integer)
-  , indices of sites
-  }
-, knot: { block index (if knot is set) }
-, constant: encoded value (positive integer number of trits, trinary value)
+[ constant / merge / knot? 1 trit (0/1/-)
+, value...
+]
+
+constant:
+[ number of trits in trit vector (positive integer)
+, trit vector
+]
+
+merge:
+[ number of input sites (positive integer)
+, input site indices (positive integers)...
+]
+
+knot:
+[ number of input sites (positive integer)
+, input site indices (positive integers)...
+, block index
 ]
 
 lut:
@@ -114,9 +124,9 @@ cell:
 ]
 
 external block:
-[ hash location of code
-, number of sites to import (positive integer)
-, block indices in code (positive integers)...
+[ code hash
+, number of blocks to import (positive integer)
+, block indices (positive integers)...
 ]
 ```
 
