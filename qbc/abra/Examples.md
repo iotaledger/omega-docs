@@ -44,8 +44,6 @@ We could shorten this, since we know that the combined length is 9.
 ```
 Resulting in: `01011--1001011010`
 
-We can see that this is implicit - concatenation as a usage of selected input sites or output sites are automatically used in the order they were declared, and so this example is only useful for instructive purposes.
-
 #### Reordering
 
 Let's imagine now that we want to reorder a site of length 9, and put the 3 first trits at the end. 
