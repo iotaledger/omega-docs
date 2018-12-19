@@ -104,3 +104,8 @@ to create a 2-input lookup table, one can simply give the same input twice.
 Thus, when encoding constants from a higher-level language, these should
 propagate down to the lookup table, which either combines with other lookup tables,
 or repeats inputs for a constant output.
+
+### Todo
+
+- [ ] Give example where a constant can be reduced to truth table
+        modifications and removed
