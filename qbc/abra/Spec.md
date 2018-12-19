@@ -136,6 +136,23 @@ external block:
 ]
 ```
 
+#### LUT definition
+
+The lookup table is encoded as 27 nullable trits, which fits in a 35
+-trit number as 27 binary-coded trits. A lookup table which returns
+0 for any input would look, in binary, like `3F_FF_FF_FF_FF`.
+
+Since this value only covers for any non-null possible inputs, we start
+encoding by starting at all negatives (first input as lowest-endian),
+`---`, and continuing to increment: `0--`, `1--`, `-0-`, `00-`, `10-`,
+..., `111`.
+
+Thus, the most-significant pair of bits (binary-coded trits) corresponds
+to `111`, and the least significant pair of bits corresponds to `---`.
+
+This final value is treated as a binary number, and encoded within a
+35-trit vector.
+
 #### Merge / Knot / Sites
 
 A merge has all input sites of identical length; but a knot (a branch
