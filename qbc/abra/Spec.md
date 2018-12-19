@@ -8,6 +8,13 @@ The inputs to and outputs from entities are called effects.
 Effects which are sent to environments defined by entity metadata affect other entities belonging to those environments.
 Branches are defined as a list of sizes of inputs, and a list of dataflow sites which may be marked as stateful and output.
 
+#### Goals
+
+Abra should be trivial to execute by an IoT device. Thus, the encoding
+given here should modify only to reduce the complexity for an IoT device
+to run it. Functionality of higher-level languages should be transformed
+and reduced to lower-level constructs to make for simpler execution.
+
 #### Terms
 
 ```
@@ -67,12 +74,12 @@ output environment data:
 
 code:
 [ tritcode version (positive integer [0])
-, number of external blocks (positive integer)
-, external block definitions...
 , number of lookup table blocks (positive integer)
-, lookup table block definitions...
+, 35-trit lookup tables (27 nullable trits in bct)...
 , number of branch blocks (positive integer)
 , branch block definitions ...
+, number of external blocks (positive integer)
+, external block definitions...
 ]
 
 block (whether external, lut, or branch):
@@ -83,22 +90,17 @@ block (whether external, lut, or branch):
 branch:
 [ number of inputs (positive integer)
 , input lengths (positive integers)...
-, number of memory latch sites (positive integer)
-, memory latch site indices (positive integers)...
 , number of body sites (positive integer)
-, body site definitions...
 , number of output sites (positive integer)
+, number of memory latch sites (positive integer)
+, body site definitions...
 , output site indices (positive integers)...
+, memory latch site indices (positive integers)...
 ]
 
 site:
-[ constant / merge / knot? 1 trit (0/1/-)
+[ merge / knot? 1 trit (1/-)
 , value...
-]
-
-constant:
-[ number of trits in trit vector (positive integer)
-, trit vector
 ]
 
 merge:
@@ -110,17 +112,6 @@ knot:
 [ number of input sites (positive integer)
 , input site indices (positive integers)...
 , block index
-]
-
-lut:
-[ number of inputs (1,2,3): 1 trit (0/1/-)
-, number of cells (positive integer)
-, cells...
-]
-
-cell:
-[ input values... (1-3 trits, dependent on number of inputs)
-, output value (1 trit)
 ]
 
 external block:
