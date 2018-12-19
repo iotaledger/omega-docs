@@ -76,7 +76,7 @@ and modify it to reverse the order of the two output sites.
 We can select a static portion from within a vector, to return the 5 middle trits offset from the first 3 trits.
 
 ```
-[ 110 // number of input sites is 2
+[ 110 // number of input sites is 3
 , [110, 1-10, 10] // the first site is of length 3, the second is of length 5, the third is of length 1
 , 0 // there are no body sites
 , -10 // there are 2 output sites
