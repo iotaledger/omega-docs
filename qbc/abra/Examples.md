@@ -30,7 +30,7 @@ We could shorten this, since we know that the combined length is 9.
 
 ```
 [ 10 // number of input sites is 1
-, [110, -110] // the first site is of length 3, the second is of length 6
+, [1--10] // total of 9 trits input (can be used by a combination of a 3 and a 6)
 , 0 // there are no body sites
 , 10 // there are 2 output sites
 , 0 // number of memory latches
