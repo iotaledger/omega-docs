@@ -72,13 +72,13 @@ The vertex fragment reflected in iota transactions on the local tangle
 ```
         T
        / \
-      o   x
+      o   1
      / \
     o   x
    / \
   o   x
  / \
-1   2
+2   x
 
 T: tail transaction (last created) of reflected vertex bundle
 x: tail hash of outgoing reflected vertex edges (like above T)
