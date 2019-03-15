@@ -2,8 +2,8 @@
 ## Abra
 
 Abra describes recursive trinary dataflow. It is a dataflow-oriented
-computation language. Abra is composed of lookup tables and trit vectors
-(and constants), which are combined to create functions and branches,
+computation language. Abra is composed of lookup tables and trit vectors,
+which are combined to create functions and branches,
 which may be recursive. Branches attached to environments are called
 entities. The inputs to and outputs from entities are called effects.
 Effects which are sent to environments defined by entity metadata affect
@@ -23,10 +23,10 @@ and reduced to lower-level constructs to make for simpler execution.
  * *Environment*: an address to which effects are sent. Effects are
     length-extended or cropped, depending on Entity input size.
  * *Entity*: an entrypoint branch which receives input effects from many
-    environments, sends output effects to many environments
- * *Effect*: a non-null trit vector sent between effects
+    environments, sends output effects to many environments.
+ * *Effect*: a non-null trit vector sent between entities.
  * *Lookup Table*: 3-input, 1-output, which only returns a non-null value
-    where defined
+    where defined.
  * *Branch*: much like a function in traditional programming paradigms. It
     can have state, and can recursively invoke itself. Recursive
     invocations of branches are new instances of the branch. If it is
@@ -34,10 +34,9 @@ and reduced to lower-level constructs to make for simpler execution.
     exact input size and an exact return size. Its output is serialized
     as each site marked as "output" in the order it appears.
  * *Knot*: an invocation of a branch which outputs to a site in the
-    dataflow of a branch
+    dataflow of a branch.
  * *Site*: a vertex in our dataflow graph within a branch, representing a
-    constant, a result of a branch invocation, or a merging of other
-    sites.
+    result of a branch invocation, or a merging of other sites.
  * *Memory Latch*: a stateful site whose new value will be usable in the
     next invocation of the same branch.
  * *Merge*: in a water analogy, a wye terminating in one output. Multiple
@@ -182,11 +181,11 @@ sites will occupy that portion.
 
 A site in the dataflow graph is wired feed-forward. However, memory
 latches may be used anywhere within a branch, and as they are declared
-first, they may use other sites for the definition of their new value.
+last, they may be used by other sites for the definition of their new value.
 With the exception of memory latches, whose value previously defined is
 used, any index declared as an input to a merge or branch must be less
-than the current site index (starting from the first memory latch,
-through input sites, body sites, and output sites)
+than the current site index (starting from the first input site, through
+body sites, output sites, and memory latch sites)
 
 If the site being defined is a memory latch, it may use any other index
 from the rest of the branch as an input, including other memory latches.
