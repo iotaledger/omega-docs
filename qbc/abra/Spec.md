@@ -55,6 +55,8 @@ affect the entities of that environment. They have a maximum `depth` of
 recursion, counted as the maximum number of branches which may be
 attached. A depth of `0` will not traverse any branches.
 
+Additionally, each environment attachment has an associated window of inputs/outputs by starting and last index of inputs/outputs. In this manner, a branch can receive inputs from separate environments.
+
 Attachment transactions are kept separate from the dataflow definition
 transactions for purposes of reusability, to keep entities
 (instantiations) separate from branches (definitions).
@@ -78,11 +80,15 @@ Attachment:
 input environment data:
 [ environment hash
 , limit (positive integer)
+, first branch input index (positive integer)
+, last branch input index (positive integer)
 ]
 
 output environment data:
 [ environment hash
 , delay (positive integer)
+, first branch output index (positive integer)
+, last branch output index (positive integer)
 ]
 
 
