@@ -80,6 +80,7 @@ Attachment:
 input environment data:
 [ environment hash
 , limit (positive integer)
+, receive from quorum (single trit)
 , first branch input index (positive integer)
 , last branch input index (positive integer)
 ]
@@ -87,6 +88,7 @@ input environment data:
 output environment data:
 [ environment hash
 , delay (positive integer)
+, post also for quorum (single trit)
 , first branch output index (positive integer)
 , last branch output index (positive integer)
 ]
